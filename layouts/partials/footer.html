@@ -1,0 +1,74 @@
+<div class="footer">
+  <p>
+    <a href="/privacy-policy.html">Privacy</a> |
+    <a href="/terms-of-service.html">Terms</a>
+  </p>
+  <p>{{ i18n "copyright" }} {{.Site.Params.copyright}}</p>
+
+  <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+
+  <script src="/bootstrap@5.0.2/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/copyClipboard.js"></script>
+  <script src="/tocbot/tocbot.min.js"></script>
+  <script src="/js/mermaid@10.7.0.min.js"></script>
+  <script src="/js/menu.js"></script>
+  <script>
+    tocbot.init({
+      // Selector cho phần nội dung chính mà tocbot sẽ tìm các tiêu đề để tạo mục lục.
+      // Thay đổi này tùy thuộc vào cấu trúc HTML của trang Hugo của bạn.
+      contentSelector: ".content", // Ví dụ: '.content', '.post-content', '#main', etc.
+
+      // Selector cho phần nơi mục lục được hiển thị.
+      tocSelector: ".toc", // Thay đổi này tùy thuộc vào nơi bạn muốn hiển thị mục lục.
+
+      // Các tiêu đề để xây dựng mục lục.
+      headingSelector: "h1, h2, h3", // Thay đổi này dựa trên các cấp độ tiêu đề bạn muốn bao gồm.
+
+      // Cấu hình CSS class, bạn có thể giữ nguyên hoặc tùy chỉnh theo ý bạn.
+      classNames: {
+        toc: "toc",
+        isCollapsed: "is-collapsed",
+        list: "toc-list",
+        listItem: "toc-list-item",
+        collapseToggle: "collapse-toggle",
+        isCollapsedClass: "is-collapsed",
+        collapsible: "is-collapsible",
+      },
+
+      // Các tùy chọn khác nếu cần.
+      collapseDepth: 3, // Mức độ tiêu đề nào mục lục sẽ tự động thu gọn (ví dụ: 3 cho h3).
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      mermaid.initialize({ startOnLoad: true });
+    });
+  </script>
+
+  <script>
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+      scrollFunction();
+    };
+
+    function scrollFunction() {
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        document.getElementById("back-to-top").style.display = "block";
+      } else {
+        document.getElementById("back-to-top").style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    document
+      .getElementById("back-to-top")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      });
+  </script>
+</div>

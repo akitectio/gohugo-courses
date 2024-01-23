@@ -1,0 +1,10 @@
+
+[[main]]
+name = "Nghiên cứu"
+pageRef = "/labs"
+weight = 1
+
+[[main]]
+name = "Thực chiến"
+pageRef = "/courses"
+weight = 2

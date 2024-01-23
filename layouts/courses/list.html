@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="container mt-4">
+  <h1 class="text-center mb-4">{{ .Site.Params.courses.Title }}</h1>
+  <p class="text-center text-muted mb-5">{{ .Site.Params.courses.Description }}</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- Repeat this block for each card -->
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "courses") }}
+    {{ range $paginator.Pages }}
+    <div class="col">
+      <div class="card h-100">
+        <a href="{{.Permalink}}">
+        <img
+          src="{{ .Params.featuredImage }}"
+          class="card-img-top"
+          alt="{{.Title}}"
+        />
+      </a>
+        <div class="card-body">
+          <a href="{{.Permalink}}"><h5 class="card-title">{{.Title}}</h5> </a>
+          <p class="card-text card-description">{{ .Params.description }}</p>
+          {{ range first 3 .Params.tags }}
+          {{ $tagURL := ($.Site.GetPage (print "tags/" .)).Permalink }}
+          <a href="{{ $tagURL }}" class="btn btn-primary">#{{ . }}</a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+    <!-- Repeat end -->
+  </div>
+  <div class="justify-content-center">
+    {{ template "_internal/pagination.html" . }}
+  </nav>
+  
+</div>
+{{ end }}

@@ -1,0 +1,105 @@
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-family: 'Roboto', sans-serif;
+  }
+  .navbar {
+    background-color: #ffffff;
+  }
+  .navbar-brand {
+    color: #212529;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .nav-link {
+    color: #212529;
+  }
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+  }
+  .card-title {
+    color: #212529;
+  }
+  .card-text {
+    color: #6c757d;
+  }
+  .btn {
+    border: none;
+  }
+  .btn-primary {
+    background-color: #007bff;
+  }
+  .btn-success {
+    background-color: #28a745;
+  }
+  .page-link {
+    background-color: #ffffff;
+    color: #007bff;
+  }
+  .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+  }
+  .footer {
+    background-color: #ffffff;
+    color: #6c757d;
+    padding: 20px;
+    text-align: center;
+  }
+  .footer a {
+    color: #6c757d;
+  }
+
+  .card-img-top {
+    max-width: 500px;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.card-body a {
+    text-decoration: none;
+}
+
+.card-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    color: #49c486;
+    font-weight: bold;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 50px;
+}
+
+/* Back to Top CSS */
+#back-to-top {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  text-decoration: none;
+  color: #000000;
+  background-color: rgba(235, 235, 235, 0.80);
+  font-size: 20px;
+  padding-top: 10px;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+  display: none;
+}
+
+#back-to-top:hover {
+  background-color: rgba(135, 135, 135, 0.50);
+  border-radius: 50px;
+}

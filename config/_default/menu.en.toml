@@ -1,0 +1,10 @@
+
+[[main]]
+name = "Research"
+pageRef = "/labs"
+weight = 1
+
+[[main]]
+name = "Courses"
+pageRef = "/courses"
+weight = 2

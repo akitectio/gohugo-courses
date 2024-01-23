@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="single main py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="mb-4">{{ .Title }}</h2>
+        {{ with .Params.subtitle }}
+        <h3 class="mb-4 text-muted">{{ . }}</h3>
+        {{ end }}
+        <div class="content mb-5">{{ .Content }}</div>
+      </div>
+      <div class="col-md-4">
+        <div class="sticky-top" style="top: 2rem">
+          <div id="toc-container" class="toc border rounded p-3">
+            {{ .TableOfContents }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
