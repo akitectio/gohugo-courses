@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Main content area -->
+    <div class="col-md-8">
+      <article>
+        <h1 class="mb-4">{{ .Title }}</h1>
+        <div>{{ .Content }}</div>
+      </article>
+    </div>
+    <!-- Sidebar with list of lessons -->
+    <div class="col-md-4">
+      <aside>
+        <h5 class="mt-4 mb-3">Lessons</h5>
+        <!-- Sidebar or section for the lessons list -->
+        <div class="list-group">
+          {{ range .Parent.Pages }} {{ if eq .Parent.Title $.Parent.Title }}
+          <a
+            href="{{ .Permalink }}"
+            class="list-group-item list-group-item-action {{ if eq .RelPermalink $.RelPermalink }}active{{ end }}"
+          >
+            {{ .Title }}
+          </a>
+          {{ end }} {{ end }}
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+{{ end }}

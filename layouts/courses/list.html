@@ -1,36 +1,58 @@
 {{ define "main" }}
 <div class="container mt-4">
-  <h1 class="text-center mb-4">{{ .Site.Params.courses.Title }}</h1>
-  <p class="text-center text-muted mb-5">{{ .Site.Params.courses.Description }}</p>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <!-- Repeat this block for each card -->
-    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "courses") }}
-    {{ range $paginator.Pages }}
-    <div class="col">
-      <div class="card h-100">
-        <a href="{{.Permalink}}">
-        <img
-          src="{{ .Params.featuredImage }}"
-          class="card-img-top"
-          alt="{{.Title}}"
-        />
-      </a>
+  <!-- Check if the current page is a detailed course page -->
+  {{ if eq .Type "courses_detail" }}
+  <!-- Display the course title and description -->
+  <h1 class="text-center mb-4">{{ .Title }}</h1>
+  <div class="course-detail">{{ .Content }}</div>
+  <!-- Check for sub-pages and list them if any -->
+  {{ if .Pages }}
+  <h2 class="text-center mb-4">Chapters</h2>
+  <div class="row">
+    {{ range .Pages }}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <a href="{{.Permalink}}"><h5 class="card-title">{{.Title}}</h5> </a>
-          <p class="card-text card-description">{{ .Params.description }}</p>
-          {{ range first 3 .Params.tags }}
-          {{ $tagURL := ($.Site.GetPage (print "tags/" .)).Permalink }}
-          <a href="{{ $tagURL }}" class="btn btn-primary">#{{ . }}</a>
-          {{ end }}
+          <h5 class="card-title">{{ .Title }}</h5>
+          <p class="card-text">{{ .Summary }}</p>
+          <a href="{{ .Permalink }}" class="btn btn-primary">Read More</a>
         </div>
       </div>
     </div>
     {{ end }}
-    <!-- Repeat end -->
   </div>
-  <div class="justify-content-center">
-    {{ template "_internal/pagination.html" . }}
-  </nav>
-  
+  {{ end }} {{ else }}
+  <!-- The existing code for the generic course listing -->
+  <h1 class="text-center mb-4">{{ .Site.Params.courses.Title }}</h1>
+  <p class="text-center text-muted mb-5">
+    {{ .Site.Params.courses.Description }}
+  </p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{ range .Pages }}
+    <div class="col">
+      <div class="card h-100">
+        <a href="{{ .Permalink }}">
+          <img
+            src="{{ .Params.featuredImage }}"
+            class="card-img-top"
+            alt="{{ .Title }}"
+          />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{ .Title }}</h5>
+          <p class="card-text">{{ .Description }}</p>
+          <p class="card-text">
+            <small class="text-muted">
+              {{ range .Params.tags }}
+              <span class="badge badge-secondary">{{ . }}</span>
+              {{ end }}
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
 </div>
 {{ end }}

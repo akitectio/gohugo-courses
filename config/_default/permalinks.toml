@@ -1,4 +1,5 @@
 # Permalinks config (https://gohugo.io/content-management/urls/#permalinks)
 
 # posts = ":year/:month/:filename"
-posts = ":filename"
+# posts = ":filename"
+# courses = "/:section/:title/"
