@@ -3,6 +3,19 @@
     <a href="/privacy-policy.html">Privacy</a> |
     <a href="/terms-of-service.html">Terms</a>
   </p>
+
+  <p>
+    {{ if .Site.Params.googleNewsUrl }}
+    <a href="{{ .Site.Params.googleNewsUrl }}">
+      <img
+        width="10%"
+        src="/follow-google-news.png"
+        alt="Follow {{ .Site.Params.title }} on Google News"
+      />
+    </a>
+    {{ end }}
+  </p>
+
   <p>{{ i18n "copyright" }} {{.Site.Params.copyright}}</p>
 
   <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
