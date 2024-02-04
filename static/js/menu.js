@@ -9,3 +9,4 @@ for (var i = 0; i < menuItems.length; i++) {
         menuItems[i].classList.add('active');
     }
 }
+

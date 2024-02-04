@@ -7,15 +7,36 @@
   <div class="course-detail">{{ .Content }}</div>
   <!-- Check for sub-pages and list them if any -->
   {{ if .Pages }}
-  <h2 class="text-center mb-4">Chapters</h2>
+  <h2 class="text-center mb-4">Lessons</h2>
   <div class="row">
     {{ range .Pages }}
     <div class="col-md-4">
+       <a href="{{ .Permalink }}" >
       <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">{{ .Title }}</h5>
-          <p class="card-text">{{ .Summary }}</p>
-          <a href="{{ .Permalink }}" class="btn btn-primary">Read More</a>
+          <a href="{{ .Permalink }}">
+            <img
+              src="{{ .Params.featuredImage }}"
+              class="card-img-top"
+              alt="{{ .Title }}"
+            />
+          </a>
+          {{ $titleParts := split .Title " - " }}
+          <h5 class="card-title mt-1">
+          <a class="link-a" href="{{ .Permalink }}">
+              <span class="highlighted-title">{{ index $titleParts 0 }}</span> - {{ index $titleParts 1 }} 
+          </a>
+          </h5>
+          <p class="card-text limited-text">{{ .Description }}</p>
+          {{ range .Params.tags }}
+          {{ $tagPage := $.Site.GetPage (printf "/tags/%s" .) }}
+          <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+            <span class="badge bg-secondary" style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;">
+            #{{ . }}
+            </span>
+          </a>
+        {{ end }}
+        </a>
         </div>
       </div>
     </div>
@@ -39,13 +60,20 @@
           />
         </a>
         <div class="card-body">
-          <h5 class="card-title">{{ .Title }}</h5>
+          <a href="{{ .Permalink }}">
+            <h5 class="card-title">{{ .Title }}</h5>
+          </a> 
           <p class="card-text">{{ .Description }}</p>
           <p class="card-text">
             <small class="text-muted">
               {{ range .Params.tags }}
-              <span class="badge badge-secondary">{{ . }}</span>
-              {{ end }}
+              {{ $tagPage := $.Site.GetPage (printf "/tags/%s" .) }}
+              <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+                <span class="badge bg-secondary" style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;">
+                #{{ . }}
+                </span>
+              </a>
+            {{ end }}
             </small>
           </p>
         </div>

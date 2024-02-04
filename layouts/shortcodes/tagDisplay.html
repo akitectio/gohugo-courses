@@ -1,0 +1,5 @@
+{{- $tag := .Get 0 -}}
+{{- $tagPage := $.Site.GetPage (printf "/tags/%s" $tag) -}}
+<a href="{{ relLangURL (printf "/tags/%s" $tag) }}">
+  <span class="badge text-danger" style="color: {{ $tagPage.Params.color }}; background-color: {{ $tagPage.Params.background }};">{{ $tag }}</span>
+</a>

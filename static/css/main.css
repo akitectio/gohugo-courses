@@ -103,3 +103,25 @@ body {
   background-color: rgba(135, 135, 135, 0.50);
   border-radius: 50px;
 }
+
+.limited-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-a {
+  text-decoration: none;
+  color: #000000;
+  margin-top: 10px;
+}
+
+.sticky-sidebar {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0; /* Set the top position for the sticky sidebar */
+  height: 100vh; /* Optional: Set to the height of the viewport */
+  overflow-y: auto; /* Optional: Add scroll to the sidebar if content is long */
+}

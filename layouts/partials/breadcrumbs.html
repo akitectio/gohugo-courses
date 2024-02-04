@@ -1,0 +1,17 @@
+{{ if .IsPage }}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    {{ $excludeSection := "akitect - Learn to Code Faster" }}
+    {{ $ancestors := .CurrentSection.Ancestors }}
+    <li class="breadcrumb-item"><a href="{{ "/" | relLangURL }}">Home</a></li>
+    {{ range $ancestors }}
+      {{ if not (eq .Title $excludeSection) }}
+        <li class="breadcrumb-item"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
+    {{ end }}
+    {{ if not (eq .CurrentSection.Title $excludeSection) }}
+      <li class="breadcrumb-item"><a href="{{ .CurrentSection.Permalink }}">{{ .CurrentSection.LinkTitle }}</a></li>
+    {{ end }}
+  </ol>
+</nav>
+{{ end }}

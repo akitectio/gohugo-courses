@@ -1,1 +1,27 @@
-
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    {{ range .Paginator.Pages }}
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ .Title }}</h5>
+          <p class="card-text">{{ .Summary }}</p>
+          <a href="{{ .Permalink }}" class="btn btn-primary"
+            >Read More &rarr;</a
+          >
+        </div>
+        <div class="card-footer text-muted">
+          Posted on {{ .Date.Format "January 2, 2006" }} by {{ .Params.author }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ if .Paginator.HasPrev }}
+  <a href="{{ .Paginator.Prev.URL }}" class="btn btn-primary">&larr; Newer</a>
+  {{ end }} {{ if .Paginator.HasNext }}
+  <a href="{{ .Paginator.Next.URL }}" class="btn btn-primary">Older &rarr;</a>
+  {{ end }}
+</div>
+{{ end }}

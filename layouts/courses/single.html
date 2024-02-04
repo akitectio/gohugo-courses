@@ -1,16 +1,9 @@
 {{ define "main" }}
 <div class="container mt-4">
   <div class="row">
-    <!-- Main content area -->
-    <div class="col-md-8">
-      <article>
-        <h1 class="mb-4">{{ .Title }}</h1>
-        <div>{{ .Content }}</div>
-      </article>
-    </div>
     <!-- Sidebar with list of lessons -->
     <div class="col-md-4">
-      <aside>
+      <aside class="sticky-sidebar">
         <h5 class="mt-4 mb-3">Lessons</h5>
         <!-- Sidebar or section for the lessons list -->
         <div class="list-group">
@@ -24,6 +17,25 @@
           {{ end }} {{ end }}
         </div>
       </aside>
+    </div>
+    <!-- Main content area -->
+    <div class="col-md-8">
+      <article>
+        <h1 class="mb-4">{{ .Title }}</h1>
+        {{ partial "breadcrumbs.html" . }}
+        <div>{{ .Content }}</div>
+        {{ range .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
+        "/tags/%s" .) }}
+        <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+          <span
+            class="badge bg-secondary"
+            style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+          >
+            #{{ . }}
+          </span>
+        </a>
+        {{ end }}
+      </article>
     </div>
   </div>
 </div>
