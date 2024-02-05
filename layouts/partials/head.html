@@ -4,6 +4,7 @@
 <link rel="icon" href="{{ "favicon.ico" | absURL }}">
 <!-- Bootstrap CSS -->
 <link href="/bootstrap@5.0.2/css/bootstrap.min.css" rel="stylesheet" />
+{{ partial "custom-og.html" . }} {{ partial "custom-analytics.html" . }}
 
 <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 

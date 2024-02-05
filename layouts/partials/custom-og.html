@@ -1,0 +1,28 @@
+<!-- Open Graph -->
+<meta property="og:title" content="{{ .Title | default .Site.Title }}" />
+<meta
+  property="og:type"
+  content="{{ if .IsHome }}website{{ else }}article{{ end }}"
+/>
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta
+  property="og:image"
+  content="{{ if .Params.image }}{{ .Params.image | absURL }}{{ else }}{{ .Site.Params.defaultImage | absURL }}{{ end }}"
+/>
+<meta
+  property="og:description"
+  content="{{ .Description | default .Site.Params.description }}"
+/>
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+
+<!-- Twitter Card (optional) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ .Title | default .Site.Title }}" />
+<meta
+  name="twitter:description"
+  content="{{ .Description | default .Site.Params.description }}"
+/>
+<meta
+  name="twitter:image"
+  content="{{ if .Params.image }}{{ .Params.image | absURL }}{{ else }}{{ .Site.Params.defaultImage | absURL }}{{ end }}"
+/>
