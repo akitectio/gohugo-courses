@@ -20,13 +20,15 @@
 
   <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
   <script src="/bootstrap@5.0.2/js/bootstrap.bundle.min.js"></script>
   <script src="/js/copyClipboard.js"></script>
   <script src="/tocbot/tocbot.min.js"></script>
   <script src="/js/mermaid@10.7.0.min.js"></script>
   <script src="/js/menu.js"></script>
+  {{ if .IsHome }}
   <script src="/js/search.js"></script>
-
+  {{ end }}
   <script id="search-result-template" type="text/x-js-template">
     <div id="summary-${key}">
       <h4><a href="${link}">${title}</a></h4>

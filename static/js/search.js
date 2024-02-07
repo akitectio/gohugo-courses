@@ -3,11 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event listener for input changes
     searchInput.addEventListener("input", () => {
+        var recentPosts = document.getElementById('recent-posts');
+
+        console.log(searchInput.value.length);
+        if (searchInput.value.length > 0) {
+            recentPosts.style.display = 'none';
+        } else {
+            recentPosts.style.display = 'block';
+        }
+
         const searchQuery = searchInput.value.trim(); // Get the trimmed input value
         if (searchQuery) {
             executeSearch(searchQuery);
-        } else {
-            document.getElementById('search-results').innerHTML = "<p>Please enter a word or phrase above</p>";
         }
     });
 
@@ -28,8 +35,10 @@ async function executeSearch(searchQuery) {
         console.log({ "matches": result });
         if (result.length > 0) {
             populateResults(result);
-        } else {
+        } else if (searchQuery.length > 0) {
             document.getElementById('search-results').innerHTML = "<p>No matches found</p>";
+        } else {
+            document.getElementById('search-results').innerHTML = "";
         }
     } catch (error) {
         console.error("Error fetching index.json:", error);
@@ -39,7 +48,7 @@ async function executeSearch(searchQuery) {
 function populateResults(results) {
     const searchResults = document.getElementById('search-results');
     searchResults.innerHTML = ''; // Clear previous results
-
+    var searchQuery = document.getElementById('search-query').value;
     results.forEach((result, index) => {
         const { item, matches } = result;
         let snippet = '';
@@ -58,12 +67,24 @@ function populateResults(results) {
 
         if (!snippet) snippet = `${item.contents.substring(0, summaryInclude * 2)}...`;
 
+        console.log({ "item": item, "matches": matches, "snippet": snippet, "snippetHighlights": snippetHighlights });
         const resultElement = document.createElement('div');
+        resultElement.className = 'col-md-3';
         resultElement.innerHTML = `
-        <div class="search-result">
-          <h2><a href="${item.permalink}">${item.title}</a></h2>
-          <p>${snippet}</p>
-          <!-- Additional details like tags and categories can be added here -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <a href="${item.permalink}">
+                    <img src="${item.featuredImage}" class="card-img-top-home" alt="${item.title}">
+                </a>
+                
+                <h5 class="card-title mt-1">
+                    <a class="link-a" href="${item.permalink}">
+                        <span class="highlighted-title">${item.title.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</span>
+                    </a>
+                </h5>
+                <p class="card-text limited-text">${snippet.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</p>
+                ${item.tags.filter(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())).map(tag => `<a href="/tags/${tag}"><span class="badge bg-secondary">${tag.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</span></a>`).join('')}
+            </div>
         </div>
       `;
 
@@ -95,6 +116,7 @@ const fuseOptions = {
         { name: "title", weight: 0.8 },
         { name: "contents", weight: 0.5 },
         { name: "tags", weight: 0.3 },
-        { name: "categories", weight: 0.3 }
+        { name: "courses", weight: 0.3 }
     ]
 };
+

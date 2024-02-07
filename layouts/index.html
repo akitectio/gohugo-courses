@@ -29,46 +29,46 @@
     </div>
   </div>
 
-  <div id="search-results" class="mt-4">
-    <h2>Kết quả tìm kiếm</h2>
-  </div>
-  <!-- 5 bài viết mới nhất -->
-  <div class="recent-posts row">
-    <h2>Bài viết mới nhất</h2>
-    {{ range first 4 .Site.RegularPages }}
-    <div class="col-md-3">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-          <a href="{{ .Permalink }}">
-            <img
-              src="{{ .Params.featuredImage }}"
-              class="card-img-top-home"
-              alt="{{ .Title }}"
-            />
-          </a>
-          {{ $titleParts := split .Title " - " }}
-          <h5 class="card-title mt-1">
-            <a class="link-a" href="{{ .Permalink }}">
-              <span class="highlighted-title">{{ index $titleParts 0 }}</span> -
-              {{ index $titleParts 1 }}
+  <div id="search-results" class="mt-4 row"></div>
+  <div id="recent-posts">
+    <!-- 5 bài viết mới nhất -->
+    <div class="recent-posts row">
+      <h2>Bài viết mới nhất</h2>
+      {{ range first 4 .Site.RegularPages }}
+      <div class="col-md-3">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <a href="{{ .Permalink }}">
+              <img
+                src="{{ .Params.featuredImage }}"
+                class="card-img-top-home"
+                alt="{{ .Title }}"
+              />
             </a>
-          </h5>
-          <p class="card-text limited-text">{{ .Description }}</p>
-          {{ range first 2 .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
-          "/tags/%s" .) }}
-          <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
-            <span
-              class="badge bg-secondary"
-              style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
-            >
-              #{{ . }}
-            </span>
-          </a>
-          {{ end }}
+            {{ $titleParts := split .Title " - " }}
+            <h5 class="card-title mt-1">
+              <a class="link-a" href="{{ .Permalink }}">
+                <span class="highlighted-title">{{ index $titleParts 0 }}</span>
+                - {{ index $titleParts 1 }}
+              </a>
+            </h5>
+            <p class="card-text limited-text">{{ .Description }}</p>
+            {{ range first 2 .Params.tags }} {{ $tagPage := $.Site.GetPage
+            (printf "/tags/%s" .) }}
+            <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+              <span
+                class="badge bg-secondary"
+                style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+              >
+                #{{ . }}
+              </span>
+            </a>
+            {{ end }}
+          </div>
         </div>
       </div>
+      {{ end }}
     </div>
-    {{ end }}
   </div>
 </div>
 {{ end }}
