@@ -5,8 +5,8 @@
   </p>
 
   <p>
-    {{ if .Site.Params.googleNewsUrl }}
-    <a href="{{ .Site.Params.googleNewsUrl }}">
+    {{ if not .Site.Params.google_new.hide }}
+    <a href="{{ .Site.Params.google_new.url }}">
       <img
         width="10%"
         src="/follow-google-news.png"
@@ -29,14 +29,6 @@
   {{ if .IsHome }}
   <script src="/js/search.js"></script>
   {{ end }}
-  <script id="search-result-template" type="text/x-js-template">
-    <div id="summary-${key}">
-      <h4><a href="${link}">${title}</a></h4>
-      <p>${snippet}</p>
-      ${ isset tags }<p>Tags: ${tags}</p>${ end }
-      ${ isset categories }<p>Categories: ${categories}</p>${ end }
-    </div>
-  </script>
 
   <script>
     tocbot.init({

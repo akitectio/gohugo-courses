@@ -18,10 +18,14 @@
         <div class="card-body">
           <a href="{{.Permalink}}"><h5 class="card-title">{{.Title}}</h5> </a>
           <p class="card-text card-description">{{ .Params.description }}</p>
-          {{ range first 3 .Params.tags }}
-          {{ $tagURL := ($.Site.GetPage (print "tags/" .)).Permalink }}
-          <a href="{{ $tagURL }}" class="btn btn-primary">#{{ . }}</a>
-          {{ end }}
+          {{ range .Params.tags }}
+          {{ $tagPage := $.Site.GetPage (printf "/tags/%s" .) }}
+          <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+            <span class="badge bg-secondary" style="border: 1px solid;color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;">
+            #{{ . }}
+            </span>
+          </a>
+        {{ end }}
         </div>
       </div>
     </div>
