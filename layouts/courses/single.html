@@ -21,20 +21,25 @@
     <!-- Main content area -->
     <div class="col-md-8">
       <article>
-        <h1 class="mb-4">{{ .Title }}</h1>
+        <h1 class="course-detail-title mb-4">{{ .Title }}</h1>
+        <p class="post-date">
+        <p><i class="fa fa-clock-o"></i> {{ .Date.Format "02/01/2006" }} - <i class="fa fa-book"></i> {{ math.Floor (add (div (float .WordCount) 200) 0.5) }} phút</p>      </p>
+          <div>
+            {{ range .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
+              "/tags/%s" .) }}
+              <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+                <span
+                  class="badge bg-secondary"
+                  style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+                >
+                  #{{ . }}
+                </span>
+              </a>
+              {{ end }}
+          </div>
+        </p>
         {{ partial "breadcrumbs.html" . }}
         <div>{{ .Content }}</div>
-        {{ range .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
-        "/tags/%s" .) }}
-        <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
-          <span
-            class="badge bg-secondary"
-            style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
-          >
-            #{{ . }}
-          </span>
-        </a>
-        {{ end }}
       </article>
     </div>
   </div>

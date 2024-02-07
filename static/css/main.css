@@ -60,6 +60,13 @@ body {
     margin-right: auto;
   }
 
+.card-img-top-home {
+  max-width: 300px;
+  height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .card-body a {
     text-decoration: none;
 }

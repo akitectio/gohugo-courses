@@ -1,36 +1,74 @@
 {{ define "main" }}
+<style>
+  .search-bar {
+    width: 100%;
+    max-width: 580px; /* Adjust the width as needed */
+  }
+  .search-bar input[type="text"] {
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    padding: 10px 20px;
+    width: calc(100% - 40px); /* Adjust the padding and border to the width */
+    margin-bottom: 20px;
+  }
+  /* Additional custom styles */
+</style>
 <div class="container mt-4">
-  <h1 class="text-center mb-4">{{ .Site.Params.labs.Title }}</h1>
-  <p class="text-center text-muted mb-5">{{ .Site.Params.labs.Description }}</p>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <h1 class="mb-4 mt-4 text-center">Bạn cần tìm gì</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
     <!-- Repeat this block for each card -->
-    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "labs") }}
-    {{ range $paginator.Pages }}
-    <div class="col">
-      <div class="card h-100">
-        <a href="{{.Permalink}}">
-        <img
-          src="{{ .Params.featuredImage }}"
-          class="card-img-top"
-          alt="{{.Title}}"
+    <div class="search-bar">
+      <div class="mb-3">
+        <input
+          type="text"
+          id="search-query"
+          class="form-control"
+          placeholder="Vui lòng gõ ký tự bạn muốn tìm kiếm"
         />
-      </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="search-results" class="mt-4">
+    <h2>Kết quả tìm kiếm</h2>
+  </div>
+  <!-- 5 bài viết mới nhất -->
+  <div class="recent-posts row">
+    <h2>Bài viết mới nhất</h2>
+    {{ range first 4 .Site.RegularPages }}
+    <div class="col-md-3">
+      <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <a href="{{.Permalink}}"><h5 class="card-title">{{.Title}}</h5> </a>
-          <p class="card-text card-description">{{ .Params.description }}</p>
-          {{ range first 3 .Params.tags }}
-          {{ $tagURL := ($.Site.GetPage (print "tags/" .)).Permalink }}
-          <a href="{{ $tagURL }}" class="btn btn-primary">#{{ . }}</a>
+          <a href="{{ .Permalink }}">
+            <img
+              src="{{ .Params.featuredImage }}"
+              class="card-img-top-home"
+              alt="{{ .Title }}"
+            />
+          </a>
+          {{ $titleParts := split .Title " - " }}
+          <h5 class="card-title mt-1">
+            <a class="link-a" href="{{ .Permalink }}">
+              <span class="highlighted-title">{{ index $titleParts 0 }}</span> -
+              {{ index $titleParts 1 }}
+            </a>
+          </h5>
+          <p class="card-text limited-text">{{ .Description }}</p>
+          {{ range first 2 .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
+          "/tags/%s" .) }}
+          <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+            <span
+              class="badge bg-secondary"
+              style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+            >
+              #{{ . }}
+            </span>
+          </a>
           {{ end }}
         </div>
       </div>
     </div>
     {{ end }}
-    <!-- Repeat end -->
   </div>
-  <div class="justify-content-center">
-    {{ template "_internal/pagination.html" . }}
-  </nav>
-  
 </div>
 {{ end }}

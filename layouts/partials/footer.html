@@ -25,6 +25,17 @@
   <script src="/tocbot/tocbot.min.js"></script>
   <script src="/js/mermaid@10.7.0.min.js"></script>
   <script src="/js/menu.js"></script>
+  <script src="/js/search.js"></script>
+
+  <script id="search-result-template" type="text/x-js-template">
+    <div id="summary-${key}">
+      <h4><a href="${link}">${title}</a></h4>
+      <p>${snippet}</p>
+      ${ isset tags }<p>Tags: ${tags}</p>${ end }
+      ${ isset categories }<p>Categories: ${categories}</p>${ end }
+    </div>
+  </script>
+
   <script>
     tocbot.init({
       // Selector cho phần nội dung chính mà tocbot sẽ tìm các tiêu đề để tạo mục lục.
