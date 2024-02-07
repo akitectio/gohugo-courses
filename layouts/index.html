@@ -2,19 +2,55 @@
 <style>
   .search-bar {
     width: 100%;
-    max-width: 580px; /* Adjust the width as needed */
+    max-width: 580px;
   }
   .search-bar input[type="text"] {
     border: 1px solid #dfe1e5;
     border-radius: 24px;
     padding: 10px 20px;
-    width: calc(100% - 40px); /* Adjust the padding and border to the width */
+    width: calc(100% - 40px);
     margin-bottom: 20px;
   }
-  /* Additional custom styles */
+
+  .profile-section {
+    padding: 20px 0;
+  }
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .social-icons a {
+    color: black;
+    margin: 0 10px;
+  }
 </style>
 <div class="container mt-4">
-  <h1 class="mb-4 mt-4 text-center">Bạn cần tìm gì</h1>
+  <div class="row profile-section">
+    <div
+      class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end"
+    >
+      <img
+        src="{{.Site.Params.home.avatar}}"
+        alt="Profile"
+        class="profile-image"
+      />
+    </div>
+    <div class="col-12 col-md-8 d-flex align-items-center">
+      <div>
+        <h3>{{.Site.Params.home.title}}</h3>
+        <h2>{{.Site.Params.home.description}}</h2>
+        <div class="social-icons">
+          <!-- Use icons from a library such as Font Awesome or similar -->
+          {{ range .Site.Params.social }}
+          <a href="{{ .href }}" class="{{ .icon }}"></a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
     <!-- Repeat this block for each card -->
     <div class="search-bar">
@@ -23,7 +59,7 @@
           type="text"
           id="search-query"
           class="form-control"
-          placeholder="Vui lòng gõ ký tự bạn muốn tìm kiếm"
+          placeholder="Bạn cần giúp đỡ gì?"
         />
       </div>
     </div>
@@ -33,7 +69,7 @@
   <div id="recent-posts">
     <!-- 5 bài viết mới nhất -->
     <div class="recent-posts row">
-      <h2>Bài viết mới nhất</h2>
+      <h2 class="text-center">Mới nhất</h2>
       {{ range first 4 .Site.RegularPages }}
       <div class="col-md-3">
         <div class="card mb-4 shadow-sm">
@@ -45,12 +81,8 @@
                 alt="{{ .Title }}"
               />
             </a>
-            {{ $titleParts := split .Title " - " }}
             <h5 class="card-title mt-1">
-              <a class="link-a" href="{{ .Permalink }}">
-                <span class="highlighted-title">{{ index $titleParts 0 }}</span>
-                - {{ index $titleParts 1 }}
-              </a>
+              <a class="link-a" href="{{ .Permalink }}">{{ .Title }} </a>
             </h5>
             <p class="card-text limited-text">{{ .Description }}</p>
             {{ range first 2 .Params.tags }} {{ $tagPage := $.Site.GetPage
@@ -58,7 +90,7 @@
             <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
               <span
                 class="badge bg-secondary"
-                style="color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+                style="border: 1px solid;color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
               >
                 #{{ . }}
               </span>

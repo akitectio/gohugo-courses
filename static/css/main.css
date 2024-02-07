@@ -61,8 +61,7 @@ body {
   }
 
 .card-img-top-home {
-  max-width: 300px;
-  height: 150px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -132,3 +131,4 @@ body {
   height: 100vh; /* Optional: Set to the height of the viewport */
   overflow-y: auto; /* Optional: Add scroll to the sidebar if content is long */
 }
+

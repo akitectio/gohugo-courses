@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function executeSearch(searchQuery) {
     try {
-        const response = await fetch("/index.json");
+        const response = await fetch("index.json");
         const pages = await response.json();
         const fuse = new Fuse(pages, fuseOptions);
         const result = fuse.search(searchQuery);
