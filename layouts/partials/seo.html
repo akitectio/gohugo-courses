@@ -4,17 +4,21 @@
   content="{{ if .Params.tags }}{{ range .Params.tags }}{{ . }}, {{ end }}{{ else }}{{ .Site.Params.seo.default_keywords }}{{ end }}"
 />
 <link rel="canonical" href="{{ .Permalink }}" />
-<meta
-  property="og:image:alt"
-  content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.seo.default_description }}{{ end }}"
-/>
 <meta name="og:title" content="{{ .Title }}" />
 <meta name="og:type" content="{{ .Type }}" />
 <meta name="og:url" content="{{ .Permalink }}" />
 {{ if .Params.images }} {{ range .Params.images }}
 <meta name="og:image" content="{{ . | absURL }}" />
+<meta
+  property="og:image:alt"
+  content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.seo.default_description }}{{ end }}"
+/>
 {{ end }} {{ else }}
 <meta name="og:image" content="{{ .Site.Params.seo.default_image | absURL }}" />
+<meta
+  property="og:image:alt"
+  content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.seo.default_description }}{{ end }}"
+/>
 {{ end }}
 <meta name="og:site_name" content="{{ .Site.Title }}" />
 <meta
