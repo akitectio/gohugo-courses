@@ -7,8 +7,13 @@
   name="google-site-verification"
   content="{{ .Site.Params.google_site_verification.key }}"
 />
-{{ end }}
-
+{{ end }} {{if .Site.Params.google_adsense.url }}
+<script
+  async
+  src="{{.Site.Params.google_adsense.url }}"
+  crossorigin="anonymous"
+></script>
+{{end}}
 <!-- Seo -->
 {{ partial "seo.html" . }}
 

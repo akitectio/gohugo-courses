@@ -7,7 +7,6 @@
         <h5 class="mt-4 mb-3">Lessons</h5>
         <!-- Sidebar or section for the lessons list -->
         <div class="list-group">
-          {{ .Scratch.Set "relatedPages" .Parent.Pages }}
           {{ range .Parent.Pages }} 
       
           {{ if eq .Parent.Title $.Parent.Title }}
@@ -18,8 +17,7 @@
             {{ .Title }}
           </a>
           {{ end }} {{ end }}
-
-        </div>
+          </div>
       </aside>
     </div>
     <!-- Main content area -->
