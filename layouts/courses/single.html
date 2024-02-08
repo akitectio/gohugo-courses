@@ -7,8 +7,10 @@
         <h5 class="mt-4 mb-3">Lessons</h5>
         <!-- Sidebar or section for the lessons list -->
         <div class="list-group">
-          {{ range .Parent.Pages }} {{ if eq .Parent.Title $.Parent.Title }}
-          {{ .Scratch.Set "relatedPages" .Pages }}
+          {{ .Scratch.Set "relatedPages" .Parent.Pages }}
+          {{ range .Parent.Pages }} 
+      
+          {{ if eq .Parent.Title $.Parent.Title }}
            <a
             href="{{ .Permalink }}"
             class="list-group-item list-group-item-action {{ if eq .RelPermalink $.RelPermalink }}active{{ end }}"
@@ -16,6 +18,7 @@
             {{ .Title }}
           </a>
           {{ end }} {{ end }}
+
         </div>
       </aside>
     </div>
