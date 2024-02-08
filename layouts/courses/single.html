@@ -8,6 +8,8 @@
         <!-- Sidebar or section for the lessons list -->
         <div class="list-group">
           {{ range .Parent.Pages }} {{ if eq .Parent.Title $.Parent.Title }}
+          <meta property="og:see_also" content="{{ .Permalink }}" />
+
           <a
             href="{{ .Permalink }}"
             class="list-group-item list-group-item-action {{ if eq .RelPermalink $.RelPermalink }}active{{ end }}"
