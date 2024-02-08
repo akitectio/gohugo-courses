@@ -7,16 +7,17 @@
 <meta name="og:title" content="{{ .Title }}" />
 <meta name="og:type" content="{{ .Type }}" />
 <meta name="og:url" content="{{ .Permalink }}" />
-{{ with .Params.images }}
-<meta property="og:image" content="{{ index . 0 | absURL }}" />
-<meta name="og:image" content="{{ index . 0 | absURL }}" />
 
-{{ else }}
+{{ with .Params.images }} {{ range $index, $image := . }} {{ if eq $index 0 }}
+<meta property="og:image" content="{{ $image | absURL }}" />
+{{ end }}
+<meta name="og:image" content="{{ $image | absURL }}" />
+{{ end }} {{ else }}
+<meta name="og:image" content="{{ .Site.Params.seo.default_image | absURL }}" />
 <meta
   property="og:image"
   content="{{ .Site.Params.seo.default_image | absURL }}"
 />
-<meta name="og:image" content="{{ .Site.Params.seo.default_image | absURL }}" />
 {{ end }}
 
 <meta
