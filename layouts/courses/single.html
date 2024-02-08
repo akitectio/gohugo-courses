@@ -39,6 +39,17 @@
           </div>
         </p>
         {{ partial "breadcrumbs.html" . }}
+        <p>
+            {{ if not .Site.Params.google_new.hide }}
+            <a href="{{ .Site.Params.google_new.url }}">
+              <img
+                width="15%"
+                src="/follow-google-news.png"
+                alt="Follow {{ .Site.Params.title }} on Google News"
+              />
+            </a>
+            {{ end }}
+          </p>
         <div>{{ .Content }}</div>
       </article>
     </div>

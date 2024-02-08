@@ -1,0 +1,20 @@
+<meta charset="UTF-8" />
+<meta
+  name="keywords"
+  content="{{ if .Params.tags }}{{ range .Params.tags }}{{ . }}, {{ end }}{{ else }}{{ .Site.Params.seo.default_keywords }}{{ end }}"
+/>
+<meta name="og:title" content="{{ .Title }}" />
+<meta name="og:type" content="{{ .Type }}" />
+<meta name="og:url" content="{{ .Permalink }}" />
+{{ if .Params.images }} {{ range .Params.images }}
+<meta name="og:image" content="{{ . | absURL }}" />
+{{ end }} {{ else }}
+<meta name="og:image" content="{{ .Site.Params.seo.default_image | absURL }}" />
+{{ end }}
+<meta name="og:site_name" content="{{ .Site.Title }}" />
+<meta
+  name="description"
+  content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.seo.default_description }}{{ end }}"
+/>
+<meta name="og:locale" content="{{ .Site.Language.Lang }}" />
+<meta name="author" content="{{ .Site.Params.seo.default_author }}" />

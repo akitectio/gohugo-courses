@@ -2,19 +2,46 @@
 <section class="single main py-5">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <h2 class="mb-4">{{ .Title }}</h2>
-        {{ with .Params.subtitle }}
-        <h3 class="mb-4 text-muted">{{ . }}</h3>
-        {{ end }}
-        <div class="content mb-5">{{ .Content }}</div>
-      </div>
       <div class="col-md-4">
         <div class="sticky-top" style="top: 2rem">
           <div id="toc-container" class="toc border rounded p-3">
             {{ .TableOfContents }}
           </div>
         </div>
+      </div>
+      <div class="col-md-8">
+        <h2 class="mb-4">{{ .Title }}</h2>
+        <p><i class="fa fa-clock-o"></i> {{ .Date.Format "02/01/2006" }} - <i class="fa fa-book"></i> {{ math.Floor (add (div (float .WordCount) 200) 0.5) }} phút</p>      </p>
+        <div>
+          {{ range .Params.tags }} {{ $tagPage := $.Site.GetPage (printf
+            "/tags/%s" .) }}
+            <a href="{{ $.Page.Site.BaseURL }}tags/{{ . }}">
+              <span
+                class="badge bg-secondary"
+                style="border: 1px solid;color: {{ $tagPage.Params.color }}!important; background-color: {{ $tagPage.Params.background }}!important;"
+              >
+                #{{ . }}
+              </span>
+            </a>
+            {{ end }}
+        </div>
+      </p>
+      {{ partial "breadcrumbs.html" . }}
+      <p>
+          {{ if not .Site.Params.google_new.hide }}
+          <a href="{{ .Site.Params.google_new.url }}">
+            <img
+              width="15%"
+              src="/follow-google-news.png"
+              alt="Follow {{ .Site.Params.title }} on Google News"
+            />
+          </a>
+          {{ end }}
+        </p>
+        {{ with .Params.subtitle }}
+        <h3 class="mb-4 text-muted">{{ . }}</h3>
+        {{ end }}
+        <div class="content mb-5">{{ .Content }}</div>
       </div>
     </div>
   </div>
