@@ -1,0 +1,16 @@
+{{ $content := .Page.Content | split "</p>" }}
+{{ range $index, $element := $content }}
+  {{ if eq $index (div (len $content) 2) }}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6342139522924885"
+        crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-format="autorelaxed"
+        data-ad-client="ca-pub-6342139522924885"
+        data-ad-slot="1731360354"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+  {{ end }}
+  {{ $element | safeHTML }}
+{{ end }}
