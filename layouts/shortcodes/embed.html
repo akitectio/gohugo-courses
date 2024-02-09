@@ -1,0 +1,4 @@
+{{ $url := .Get 0 }} {{ if strings.HasPrefix $url "https://gist.github.com/" }}
+{{ $gistId := index (split (index (split $url "/") 3) ".") 0 }}
+<script src="https://gist.github.com/{{ $gistId }}.js"></script>
+{{ end }}
