@@ -4,7 +4,7 @@
   content="{{ if .Params.tags }}{{ range .Params.tags }}{{ . }}, {{ end }}{{ else }}{{ .Site.Params.seo.default_keywords }}{{ end }}"
 />
 <link rel="canonical" href="{{ .Permalink }}" />
-<meta property="og:type" content="{{ .Type }}" />
+<meta property="og:type" content="article" />
 <meta property="og:url" content="{{ .Permalink }}" />
 {{ with .Params.images }} {{ range $index, $image := . }}
 <meta property="og:image" content="{{ $image | absURL }}" />
@@ -41,7 +41,7 @@
 {{end}}
 
 <meta property="og:site_name" content="{{ .Site.Title }}" />
-<meta property="og:title" content="{{ .Site.Title }}" />
+<meta property="og:title" content="{{ .Title }}" />
 <meta
   property="article:tag"
   content="{{ if .Params.tags }}{{ range .Params.tags }}{{ . }}, {{ end }}{{ else }}{{ .Site.Params.seo.default_keywords }}{{ end }}"
