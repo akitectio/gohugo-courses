@@ -1,0 +1,5 @@
+home = ["HTML", "RSS", "JSON"]
+section = ["HTML", "RSS"]
+taxonomy = ["HTML", "RSS"]
+taxonomyTerm = ["HTML"]
+page = ["HTML", "MarkDown"]
