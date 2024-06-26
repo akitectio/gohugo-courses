@@ -4,7 +4,9 @@ guessSyntax = true
 lineNos = true
 lineNumbersInTable = true
 noClasses = false
+
 [goldmark]
+
 [goldmark.extensions]
 definitionList = true
 footnote = true
@@ -13,8 +15,10 @@ strikethrough = true
 table = true
 taskList = true
 typographer = true
+
 [goldmark.renderer]
 unsafe = true
+
 [tableOfContents]
 startLevel = 2
 endLevel = 6

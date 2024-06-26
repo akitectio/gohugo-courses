@@ -1,0 +1,31 @@
+.admonition-block {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.admonition-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+.admonition-content {
+    padding-top: 10px;
+}
+
+.collapse-toggle {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.collapse-toggle:focus {
+    outline: none;
+    box-shadow: none;
+}
