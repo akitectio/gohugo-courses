@@ -1,20 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search-query");
+    const recentPosts = document.getElementById('recent-posts');
+    const searchResults = document.getElementById('search-results');
 
     // Event listener for input changes
     searchInput.addEventListener("input", () => {
-        var recentPosts = document.getElementById('recent-posts');
+        const searchQuery = searchInput.value.trim(); // Get the trimmed input value
 
-        console.log(searchInput.value.length);
-        if (searchInput.value.length > 0) {
+        if (searchQuery.length > 0) {
             recentPosts.style.display = 'none';
+            executeSearch(searchQuery);
         } else {
             recentPosts.style.display = 'block';
-        }
-
-        const searchQuery = searchInput.value.trim(); // Get the trimmed input value
-        if (searchQuery) {
-            executeSearch(searchQuery);
+            clearSearchResults();
         }
     });
 
@@ -33,23 +31,18 @@ async function executeSearch(searchQuery) {
         const fuse = new Fuse(pages, fuseOptions);
         const result = fuse.search(searchQuery);
         console.log({ "matches": result });
-        if (result.length > 0) {
-            populateResults(result);
-        } else if (searchQuery.length > 0) {
-            document.getElementById('search-results').innerHTML = "<p>No matches found</p>";
-        } else {
-            document.getElementById('search-results').innerHTML = "";
-        }
+        populateResults(result, searchQuery);
     } catch (error) {
         console.error("Error fetching index.json:", error);
+        clearSearchResults();
     }
 }
 
-function populateResults(results) {
-    const searchResults = document.getElementById('search-results');
-    searchResults.innerHTML = ''; // Clear previous results
-    var searchQuery = document.getElementById('search-query').value;
-    results.forEach((result, index) => {
+function populateResults(results, searchQuery) {
+    const searchResultsElement = document.getElementById('search-results');
+    searchResultsElement.innerHTML = ''; // Clear previous results
+
+    results.forEach(result => {
         const { item, matches } = result;
         let snippet = '';
         const snippetHighlights = [];
@@ -67,34 +60,46 @@ function populateResults(results) {
 
         if (!snippet) snippet = `${item.contents.substring(0, summaryInclude * 2)}...`;
 
-        console.log({ "item": item, "matches": matches, "snippet": snippet, "snippetHighlights": snippetHighlights });
         const resultElement = document.createElement('div');
         resultElement.className = 'col-md-3';
         resultElement.innerHTML = `
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <a href="${item.permalink}">
-                    <img src="${item.featuredImage}" class="card-img-top-home" alt="${item.title}">
-                </a>
-                
-                <h5 class="card-title mt-1">
-                    <a class="link-a" href="${item.permalink}">
-                        <span class="highlighted-title">${item.title.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</span>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <a href="${item.permalink}">
+                        <img src="${item.featuredImage}" class="card-img-top-home" alt="${item.title}">
                     </a>
-                </h5>
-                <p class="card-text limited-text">${snippet.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</p>
-                ${item.tags.filter(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())).map(tag => `<a href="/tags/${tag}"><span class="badge bg-secondary">${tag.replace(new RegExp(searchQuery, 'gi'), '<mark style="background-color: red;">$&</mark>')}</span></a>`).join('')}
+                    
+                    <h5 class="card-title mt-1">
+                        <a class="link-a" href="${item.permalink}">
+                            <span class="highlighted-title">${highlightText(item.title, searchQuery)}</span>
+                        </a>
+                    </h5>
+                    <p class="card-text limited-text">${highlightText(snippet, searchQuery)}</p>
+                    ${item.tags.filter(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())).map(tag => `
+                        <a href="/tags/${tag}">
+                            <span class="badge bg-secondary">${highlightText(tag, searchQuery)}</span>
+                        </a>
+                    `).join('')}
+                </div>
             </div>
-        </div>
-      `;
+        `;
 
         // Highlight the snippet text, if needed
         snippetHighlights.forEach(highlight => {
-            resultElement.innerHTML = resultElement.innerHTML.replace(highlight, `<mark>${highlight}</mark>`);
+            resultElement.innerHTML = resultElement.innerHTML.replace(new RegExp(highlight, 'gi'), `<mark>${highlight}</mark>`);
         });
 
-        searchResults.appendChild(resultElement);
+        searchResultsElement.appendChild(resultElement);
     });
+}
+
+function highlightText(text, query) {
+    return text.replace(new RegExp(query, 'gi'), '<mark style="background-color: red;">$&</mark>');
+}
+
+function clearSearchResults() {
+    const searchResultsElement = document.getElementById('search-results');
+    searchResultsElement.innerHTML = "";
 }
 
 function param(name) {
@@ -119,4 +124,3 @@ const fuseOptions = {
         { name: "courses", weight: 0.3 }
     ]
 };
-
